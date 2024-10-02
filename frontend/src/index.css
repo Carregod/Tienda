@@ -1,0 +1,104 @@
+/* Reset de márgenes y padding global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo básico del body */
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #1e1e1e; /* Fondo oscuro */
+  color: #e0e0e0; /* Color de texto claro */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilo para el código */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background-color: #282c34; /* Fondo oscuro para bloques de código */
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  color: #ff79c6; /* Color brillante para el código */
+}
+
+/* Enlaces mejorados */
+a {
+  color: #61dafb; /* Azul brillante */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #9be9ff; /* Cambio de color en hover */
+}
+
+/* Estilo para listas */
+ul, ol {
+  margin: 1em 0;
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+/* Contenedor general */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #2c2c2c; /* Fondo oscuro para el contenedor */
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Estilo para botones */
+button {
+  font-family: inherit;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #ff6b6b, #f06595); /* Gradiente llamativo */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #ff4757, #e056fd); /* Cambio de gradiente al hacer hover */
+  transform: translateY(-3px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  button {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+/* Estilo personalizado para el título h2 */
+.custom-title {
+  color: #ffffff;
+  text-align: center; 
+  margin-bottom: 20px;
+}

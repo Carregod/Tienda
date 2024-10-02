@@ -1,0 +1,30 @@
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://d100mj7v0l85u5.cloudfront.net/s3fs-public/2022-08/reutilizar-vidrio-industria-licores.png'); /* Puedes reemplazar esta URL con tu imagen */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+  }
+  
+  .welcome-content {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    font-family: 'Arial', sans-serif;
+  }
+  
