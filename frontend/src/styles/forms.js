@@ -26,28 +26,20 @@ export const FormContainer = styled.div`
 `;
 
 export const StyledButton = styled.button`
-  background: linear-gradient(135deg, #ff5722, #ff8a65);
+   background-color: ${(props) => (props.danger ? '#ff4c4c' : '#007bff')};
   color: white;
-  padding: 14px 24px;
   border: none;
-  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background 0.4s ease, transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background: linear-gradient(135deg, #e64a19, #ff7043);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+    background-color: ${(props) => (props.danger ? '#e63939' : '#0056b3')};
   }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: none;
-  }
+  
+  margin: 10px 5px;
 `;
 
 export const StyledField = styled.input`
@@ -74,3 +66,49 @@ export const ErrorMsg = styled.div`
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 `;
+
+export const ListContainer = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 600px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+`;
+
+export const ListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  color: #ddd;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+export const H1 = styled.h1`
+  font-size: 2.5rem;
+  color: #b5d8d8; /* Blanco para destacar */
+  margin: 20px 0;
+  text-align: center;
+`;
+
+export const H2 = styled.h2`
+  font-size: 2rem;
+  color: #b5d8d8; /* Un azul brillante */
+  margin: 15px 0;
+  text-align: center;
+`;
+
+export const H3 = styled.h3`
+  font-size: 1.5rem;
+  color: #b5d8d8; /* Blanco */
+  margin: 10px 0;
+  text-align: left;
+`;
+
