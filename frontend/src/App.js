@@ -23,7 +23,7 @@ function App() {
   };
   const PrivateRoute = ({ children }) => {
     
-    const { isAuthenticated } = React.useContext(AuthContext); // Usar el contexto de autenticación
+    const { isAuthenticated } = React.useContext(AuthContext); //contexto de autenticación
     return isAuthenticated ? children : <Navigate to="/login" />; // Redirigir si no está autenticado
   };
 

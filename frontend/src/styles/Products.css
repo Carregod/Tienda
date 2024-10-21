@@ -137,4 +137,11 @@
   transition: all 0.3s ease;
 }
   
-  
+  /* Estilos para las imágenes de los productos */
+.product-image {
+  width: 300px; /* Ancho fijo de las imágenes */
+  height: 300px; /* Alto fijo de las imágenes */
+  object-fit: cover; /* Ajusta la imagen para llenar el área sin deformarla */
+  border-radius: 8px; /* Opcional: añade bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: añade sombra a las imágenes */
+}

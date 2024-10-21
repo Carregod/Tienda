@@ -134,7 +134,7 @@ const Products = () => {
         {currentProducts.map(product => (
           <div className="col-md-4 mb-4" key={product._id}>
             <Card>
-              <Card.Img variant="top" src={product.image} alt={product.name} />
+              <Card.Img variant="top" src={product.image} alt={product.name} className="product-image" />
               <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Text>{product.description}</Card.Text>
