@@ -21,7 +21,7 @@ const purchasedProductSchema = new mongoose.Schema({
   purchasedAt: {
     type: Date,
     default: Date.now
-  }
+  },
 });
 
 module.exports = mongoose.model('PurchasedProduct', purchasedProductSchema);

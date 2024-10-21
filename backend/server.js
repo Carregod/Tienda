@@ -6,9 +6,12 @@ const adminRoutes = require('./routes/adminRoutes');
 const productRoutes = require('./routes/productRoutes');
 require('dotenv').config()
 
+mongoose.set('strictQuery', true);
+
 
 const app = express();
 mongoose.connect(process.env.DB_URI, )
+
 .then(() => console.log('Conectado a la base de datos'))
 .catch(err => console.error('Error al conectar a la base de datos', err));
 
@@ -18,9 +21,9 @@ app.use(express.json());
 // Rutas
 
 app.get('/', (req, res) => {res.send('¡Bienvenido! Por favor, inicie sesión.');});
-app.use('/api/auth', authRoutes);
-app.use('/admin', adminRoutes);
-app.use('/api/products', productRoutes);
+app.use('/api/auth', authRoutes);           //rutas de usuarios
+app.use('/admin', adminRoutes);             //rutas administrador
+app.use('/api/products', productRoutes);    //rutas de productos 
 
 
 

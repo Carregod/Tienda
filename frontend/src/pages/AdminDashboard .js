@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { StyledButton, FormContainer, StyledField, ListItem,H1,H2,H3} from '../styles/forms';
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  StyledButton,
+  FormContainer,
+  StyledField,
+  ListItem,
+  H1,
+  H2,
+  H3,
+} from "../styles/forms";
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -19,30 +26,41 @@ const AdminDashboard = () => {
   const fetchProducts = async () => {
     try {
       // const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/admin/products');
+      const response = await axios.get("http://localhost:5000/admin/products");
       setProducts(response.data);
     } catch (error) {
-      console.error('Error fetching products', error);
+      console.error("Error fetching products", error);
     }
   };
 
   // Obtener usuarios desde el backend
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/admin/users');
+      const response = await axios.get("http://localhost:5000/admin/users");
       setUsers(response.data);
     } catch (error) {
-      console.error('Error fetching users', error);
+      console.error("Error fetching users", error);
+    }
+  };
+  // Inhabilitar producto
+  const handleDisable = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/admin/disable/${id}`);
+      fetchProducts();
+      // Actualiza el estado local o vuelve a hacer fetch de los productos para ver los cambios.
+    } catch (error) {
+      console.error("Error al inhabilitar el producto:", error);
     }
   };
 
-  // Eliminar producto
-  const handleDeleteProduct = async (id) => {
+  // Habilitar producto
+  const handleActivate = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/admin/products/${id}`);
-      fetchProducts(); // Actualizar la lista de productos
+      await axios.put(`http://localhost:5000/admin/activate/${id}`);
+      fetchProducts();
+      // Actualiza el estado local o vuelve a hacer fetch de los productos para ver los cambios.
     } catch (error) {
-      console.error('Error deleting product', error);
+      console.error("Error al Habilitar el producto:", error);
     }
   };
 
@@ -52,7 +70,7 @@ const AdminDashboard = () => {
       await axios.delete(`http://localhost:5000/admin/users/${id}`);
       fetchUsers(); // Actualizar la lista de usuarios
     } catch (error) {
-      console.error('Error deleting user', error);
+      console.error("Error deleting user", error);
     }
   };
 
@@ -60,11 +78,14 @@ const AdminDashboard = () => {
   const handleEditProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/admin/products/${selectedProduct._id}`, selectedProduct);
+      await axios.put(
+        `http://localhost:5000/admin/products/${selectedProduct._id}`,
+        selectedProduct
+      );
       fetchProducts();
       setSelectedProduct(null); // Limpiar selección después de actualizar
     } catch (error) {
-      console.error('Error updating product', error);
+      console.error("Error updating product", error);
     }
   };
 
@@ -72,11 +93,14 @@ const AdminDashboard = () => {
   const handleEditUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/admin/users/${selectedUser._id}`, selectedUser);
+      await axios.put(
+        `http://localhost:5000/admin/users/${selectedUser._id}`,
+        selectedUser
+      );
       fetchUsers();
       setSelectedUser(null); // Limpiar selección después de actualizar
     } catch (error) {
-      console.error('Error updating user', error);
+      console.error("Error updating user", error);
     }
   };
 
@@ -100,38 +124,66 @@ const AdminDashboard = () => {
         {products.map((product) => (
           <ListItem key={product._id}>
             {product.name} - ${product.price}
-            <StyledButton onClick={() => setSelectedProduct(product)}>Edit</StyledButton>
-            <StyledButton onClick={() => handleDeleteProduct(product._id)}>Delete</StyledButton>
+            <StyledButton onClick={() => setSelectedProduct(product)}>
+              Edit
+            </StyledButton>
+            <StyledButton
+              onClick={
+                () =>
+                  product.isInactive
+                    ? handleActivate(product._id) // Si está inhabilitado, activar
+                    : handleDisable(product._id) // Si está activo, deshabilitar
+              }
+            >
+              {product.isInactive ? "Activar" : "Inhabilitar"}
+            </StyledButton>
+            <span>
+              {product.name} - {product.isInactive ? "Inhabilitado" : "Activo"}
+            </span>
           </ListItem>
         ))}
       </ul>
 
       {selectedProduct && (
         <FormContainer>
-       <form onSubmit={handleEditProduct}>
-          <H3>Edit Product</H3>
-          <StyledField
-            type="text"
-            name="name"
-            value={selectedProduct.name || ''}
-            onChange={handleProductChange}
-            placeholder="Product Name"
-          />
-          <StyledField
-            type="text"
-            name="price"
-            value={selectedProduct.price || ''}
-            onChange={handleProductChange}
-            placeholder="Product Price"
-          />
-          <StyledField
-            name="description"
-            value={selectedProduct.description || ''}
-            onChange={handleProductChange}
-            placeholder="Product Description"
-          />
-          <StyledButton type="submit">Update Product</StyledButton>
-        </form>
+          <form onSubmit={handleEditProduct}>
+            <H3>Edit Product</H3>
+            <StyledField
+              type="text"
+              name="name"
+              value={selectedProduct.name || ""}
+              onChange={handleProductChange}
+              placeholder="Product Name"
+            />
+            <StyledField
+              type="text"
+              name="price"
+              value={selectedProduct.price || ""}
+              onChange={handleProductChange}
+              placeholder="Product Price"
+            />
+            <StyledField
+              name="description"
+              value={selectedProduct.description || ""}
+              onChange={handleProductChange}
+              placeholder="Product Description"
+            />
+            <StyledField
+              type="number"
+              name="quantity"
+              value={selectedProduct.quantity || ""}
+              onChange={handleProductChange}
+              placeholder="Product Quantity"
+            />
+            <StyledField
+              type="text"
+              name="image"
+              value={selectedProduct.image || ""}
+              onChange={handleProductChange}
+              placeholder="Product Image URL"
+            />
+            <StyledButton type="submit">Update Product</StyledButton>
+          </form>
         </FormContainer>
       )}
 
@@ -141,32 +193,36 @@ const AdminDashboard = () => {
         {users.map((user) => (
           <ListItem key={user._id}>
             {user.name} - {user.email}
-            <StyledButton onClick={() => setSelectedUser(user)}>Edit</StyledButton>
-            <StyledButton onClick={() => handleDeleteUser(user._id)}>Delete</StyledButton>
+            <StyledButton onClick={() => setSelectedUser(user)}>
+              Edit
+            </StyledButton>
+            <StyledButton onClick={() => handleDeleteUser(user._id)}>
+              Delete
+            </StyledButton>
           </ListItem>
         ))}
       </ul>
 
       {selectedUser && (
-         <FormContainer>
-        <form onSubmit={handleEditUser}>
-          <H3>Edit User</H3>
-          <StyledField
-            type="text"
-            name="name"
-            value={selectedUser.name || ''}
-            onChange={handleUserChange}
-            placeholder="User Name"
-          />
-          <StyledField
-            type="email"
-            name="email"
-            value={selectedUser.email || ''}
-            onChange={handleUserChange}
-            placeholder="User Email"
-          />
-          <StyledButton type="submit">Update User</StyledButton>
-        </form>
+        <FormContainer>
+          <form onSubmit={handleEditUser}>
+            <H3>Edit User</H3>
+            <StyledField
+              type="text"
+              name="name"
+              value={selectedUser.name || ""}
+              onChange={handleUserChange}
+              placeholder="User Name"
+            />
+            <StyledField
+              type="email"
+              name="email"
+              value={selectedUser.email || ""}
+              onChange={handleUserChange}
+              placeholder="User Email"
+            />
+            <StyledButton type="submit">Update User</StyledButton>
+          </form>
         </FormContainer>
       )}
     </FormContainer>
@@ -174,176 +230,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import TextInput from '../styles/TextInput';
-// import { StyledButton, FormContainer, DashboardContainer, ListContainer, ListItem } from '../styles/forms';
-
-// const AdminDashboard = () => {
-//   const [products, setProducts] = useState([]);
-//   const [users, setUsers] = useState([]);
-//   const [selectedProduct, setSelectedProduct] = useState(null);
-//   const [selectedUser, setSelectedUser] = useState(null);
-
-//   useEffect(() => {
-//     fetchProducts();
-//     fetchUsers();
-//   }, []);
-
-//   const fetchProducts = async () => {
-//     try {
-//       const token = localStorage.getItem('token');
-//       const response = await axios.get('http://localhost:5000/admin/products');
-//       setProducts(response.data);
-//     } catch (error) {
-//       console.error('Error fetching products', error);
-//     }
-//   };
-
-//   const fetchUsers = async () => {
-//     try {
-//       const response = await axios.get('http://localhost:5000/admin/users');
-//       setUsers(response.data);
-//     } catch (error) {
-//       console.error('Error fetching users', error);
-//     }
-//   };
-
-//   const handleDeleteProduct = async (id) => {
-//     try {
-//       await axios.delete(`http://localhost:5000/admin/products/${id}`);
-//       fetchProducts();
-//     } catch (error) {
-//       console.error('Error deleting product', error);
-//     }
-//   };
-
-//   const handleDeleteUser = async (id) => {
-//     try {
-//       await axios.delete(`http://localhost:5000/admin/users/${id}`);
-//       fetchUsers();
-//     } catch (error) {
-//       console.error('Error deleting user', error);
-//     }
-//   };
-
-//   const handleEditProduct = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await axios.put(`http://localhost:5000/admin/products/${selectedProduct._id}`, selectedProduct);
-//       fetchProducts();
-//       setSelectedProduct(null);
-//     } catch (error) {
-//       console.error('Error updating product', error);
-//     }
-//   };
-
-//   const handleEditUser = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await axios.put(`http://localhost:5000/admin/users/${selectedUser._id}`, selectedUser);
-//       fetchUsers();
-//       setSelectedUser(null);
-//     } catch (error) {
-//       console.error('Error updating user', error);
-//     }
-//   };
-
-//   const handleProductChange = (e) => {
-//     setSelectedProduct({ ...selectedProduct, [e.target.name]: e.target.value });
-//   };
-
-//   const handleUserChange = (e) => {
-//     setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
-//   };
-
-//   return (
-//     <DashboardContainer>
-//       <h1>Admin Dashboard</h1>
-
-//       {/* Product Management Section */}
-//       <h2>Manage Products</h2>
-//       <ListContainer>
-//         {products.map((product) => (
-//           <ListItem key={product._id}>
-//             {product.name} - ${product.price}
-//             <div>
-//               <StyledButton onClick={() => setSelectedProduct(product)}>Edit</StyledButton>
-//               <StyledButton onClick={() => handleDeleteProduct(product._id)} danger>Delete</StyledButton>
-//             </div>
-//           </ListItem>
-//         ))}
-//       </ListContainer>
-
-//       {selectedProduct && (
-//         <FormContainer>
-//           <h3>Edit Product</h3>
-//           <form onSubmit={handleEditProduct}>
-//             <TextInput
-//               type="text"
-//               name="name"
-//               value={selectedProduct.name || ''}
-//               onChange={handleProductChange}
-//               placeholder="Product Name"
-//             />
-//             <TextInput
-//               type="text"
-//               name="price"
-//               value={selectedProduct.price || ''}
-//               onChange={handleProductChange}
-//               placeholder="Product Price"
-//             />
-//             <TextInput
-//               as="textarea"
-//               name="description"
-//               value={selectedProduct.description || ''}
-//               onChange={handleProductChange}
-//               placeholder="Product Description"
-//             />
-//             <StyledButton type="submit">Update Product</StyledButton>
-//           </form>
-//         </FormContainer>
-//       )}
-
-//       {/* User Management Section */}
-//       <h2>Manage Users</h2>
-//       <ListContainer>
-//         {users.map((user) => (
-//           <ListItem key={user._id}>
-//             {user.name} - {user.email}
-//             <div>
-//               <StyledButton onClick={() => setSelectedUser(user)}>Edit</StyledButton>
-//               <StyledButton onClick={() => handleDeleteUser(user._id)} danger>Delete</StyledButton>
-//             </div>
-//           </ListItem>
-//         ))}
-//       </ListContainer>
-
-//       {selectedUser && (
-//         <FormContainer>
-//           <h3>Edit User</h3>
-//           <form onSubmit={handleEditUser}>
-//             <TextInput
-//               type="text"
-//               name="name"
-//               value={selectedUser.name || ''}
-//               onChange={handleUserChange}
-//               placeholder="User Name"
-//             />
-//             <TextInput
-//               type="email"
-//               name="email"
-//               value={selectedUser.email || ''}
-//               onChange={handleUserChange}
-//               placeholder="User Email"
-//             />
-//             <StyledButton type="submit">Update User</StyledButton>
-//           </form>
-//         </FormContainer>
-//       )}
-//     </DashboardContainer>
-//   );
-// };
-
-// export default AdminDashboard;
