@@ -1,0 +1,147 @@
+/* Estilos para el ícono de carrito flotante */
+.cart-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  color: #ffffff;
+  background-color: #111111;
+  border-radius: 50%;
+  padding: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cart-count {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: rgb(32, 30, 30);
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los detalles del carrito */
+.cart-details {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  width: 320px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000; 
+  transform: translateY(-10px);
+
+}
+ 
+.cart-icon:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el contador del carrito */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Mostrar detalles del carrito cuando esté activo */
+.cart-details.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Estilos para los ítems dentro del carrito */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.cart-item-price {
+  font-size: 14px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.cart-item-remove {
+  font-size: 12px;
+  color: #dc3545;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.cart-item-remove:hover {
+  color: #a71d2a;
+}
+
+/* Estilos para el botón de checkout */
+.cart-checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cart-checkout-btn:hover {
+  background-color: #218838;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para una transición suave en todo el componente */
+.cart-details,
+.cart-item,
+.cart-checkout-btn {
+  transition: all 0.3s ease;
+}
+  
+  /* Estilos para las imágenes de los productos */
+.product-image {
+  width: 300px; /* Ancho fijo de las imágenes */
+  height: 300px; /* Alto fijo de las imágenes */
+  object-fit: cover; /* Ajusta la imagen para llenar el área sin deformarla */
+  border-radius: 8px; /* Opcional: añade bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: añade sombra a las imágenes */
+}
